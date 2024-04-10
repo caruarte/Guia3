@@ -91,3 +91,50 @@ sumarSoloMultiplos (a,b,c) d
     | mod b d == 0 = b
     | mod c d == 0 = c
     | otherwise = 0
+
+posPrimerPar :: (Int, Int, Int) -> Int
+posPrimerPar (x, y, z)
+    | mod x 2 == 0 = 1
+    | mod y 2 == 0 = 2
+    | mod z 2 == 0 = 3
+    | otherwise = 4
+
+crearPar :: a -> b -> (a,b)
+crearPar x y = (x, y)
+
+invertir :: (a,b) -> (b, a)
+invertir (x,y) = (y,x)
+
+-- ej 5
+
+todosMenores :: (Int, Int, Int) -> Bool
+todosMenores (x, y, z) = b x > c x && b y > c y && b z > c z
+
+b :: Int -> Int
+b x | x <= 7 = x^2
+    | otherwise = 2*x-1
+
+c :: Int -> Int
+c x | mod x 2 == 0 = div x 2
+    | otherwise = 3*x+1
+
+-- ej 6
+
+bisiesto :: Int -> Bool
+bisiesto x = mod x 4 == 0 && (mod x 100 /= 0 || mod x 400 == 0)
+
+-- ej 7
+
+distanciaManhattan :: (Float, Float, Float) -> (Float, Float, Float) -> Float
+distanciaManhattan (x, y, z) (a, b, c) = abs (x-a) + abs (y-b) + abs (z-c)
+
+--ej 8
+
+comparar :: Int -> Int -> Int
+comparar x y 
+    | sumaUltimosDosDigitos(x) < sumaUltimosDosDigitos(y) = 1
+    | sumaUltimosDosDigitos(x) > sumaUltimosDosDigitos(y) = -1
+    | otherwise = 0
+
+sumaUltimosDosDigitos :: Int -> Int
+sumaUltimosDosDigitos x = mod (abs x) 10 + mod (div (abs x) 10) 10
