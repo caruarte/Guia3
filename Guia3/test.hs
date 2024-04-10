@@ -65,4 +65,29 @@ digitoDecenas :: Int -> Int
 digitoDecenas x = div (mod x 100) 10 
 
 estanRelacionados :: Int -> Int -> Bool
-estanRelacionados a b = a*a + a*b*k == 0 && k /= 0
+estanRelacionados a b = mod (a*a) (a*b) == 0
+
+-- ejercicio 4
+
+prodInt :: (Float, Float) -> (Float, Float) -> Float
+prodInt (a,b) (c,d) = a*c + b*d
+
+todoMenor :: (Float, Float) -> (Float, Float) -> Bool
+todoMenor (a,b) (c,d) = a < c && b < d
+
+distanciaPuntos :: (Float, Float) -> (Float, Float) -> Float
+distanciaPuntos (a,b) (c,d) = sqrt(((c - a)**2) + ((d - b)**2))
+
+sumaTerna :: (Int, Int, Int) -> Int
+sumaTerna (a,b,c) = a+b+c
+
+sumarSoloMultiplos :: (Int, Int, Int) -> Int -> Int
+sumarSoloMultiplos (a,b,c) d
+    | mod a d == 0 && mod b d == 0 && mod c d == 0 = a+b+c
+    | mod a d == 0 && mod b d == 0 && mod c d /= 0 = a+b
+    | mod a d == 0 && mod b d /= 0 && mod c d == 0 = a+c
+    | mod a d /= 0 && mod b d == 0 && mod c d == 0 = b+c
+    | mod a d == 0 = a
+    | mod b d == 0 = b
+    | mod c d == 0 = c
+    | otherwise = 0
