@@ -139,7 +139,7 @@ comparar x y
 sumaUltimosDosDigitos :: Int -> Int
 sumaUltimosDosDigitos x = mod (abs x) 10 + mod (div (abs x) 10) 10
 
--- TEORICA PARO
+-- TEORICA PARO - apuntes
 
 -- f5 :: (Num t1, Eq t1, Ord t2, Eq t2) => t1 -> t1 -> t2 -> t2
 -- f5 x y z 
