@@ -138,3 +138,24 @@ comparar x y
 
 sumaUltimosDosDigitos :: Int -> Int
 sumaUltimosDosDigitos x = mod (abs x) 10 + mod (div (abs x) 10) 10
+
+-- TEORICA PARO
+
+-- f5 :: (Num t1, Eq t1, Ord t2, Eq t2) => t1 -> t1 -> t2 -> t2
+-- f5 x y z 
+--     | x == y = z
+--     | x ** y == y = z
+--     | otherwise = z
+
+angulo0 :: (Float , Float) -> Bool
+angulo0 (_,0) = True
+angulo0 (_,_) = False
+
+-- (*+) :: (Num a) => a -> a -> abs
+
+suma :: Int -> Int -> Int
+suma x y = x+y
+
+factorial :: Int -> Int
+factorial 0 = 1
+factorial n = n * factorial (n-1)
