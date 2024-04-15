@@ -12,7 +12,7 @@ parteEntera x
 -- parteEntera 2.5 = 1 + 1 + 0
 -- pE -2.5 = -1 - 1 + pE -0.5
 
-esDivisible :: Float -> Float -> Bool
+esDivisible :: Integer -> Integer -> Bool
 esDivisible x y
     | x - y  == 0 = True
     | x - y  < 0 = False
@@ -56,3 +56,27 @@ todosDigitosIguales n
 -- tDI 23 = False
 -- tDI 555 = tDI 55 = tDI 5 = True 
 -- tDI 10 = False
+
+-- ej 8
+
+iesimoDigito :: Integer -> Integer -> Integer
+iesimoDigito n i = mod (div n (10^((cantDigitos n) - i))) 10
+
+-- iesimoDigito 123 3 = 3
+
+cantDigitos :: Integer -> Integer
+cantDigitos n
+    | n < 10 = 1
+    | otherwise = 1 + cantDigitos(div n 10)
+
+-- cD 20 = 1 + cD 2 = 1 + 1 + cD 
+
+-- ej 9
+
+esCapicua :: Integer -> Bool
+esCapicua n
+    | cantDigitos n == 1 = True
+    | cantDigitos n == 2 = iesimoDigito n 1 == iesimoDigito n 2
+    | otherwise = (iesimoDigito n 1 == iesimoDigito n (cantDigitos n)) && esCapicua (div (mod n ((iesimoDigito n 1) * 10^((cantDigitos n)-1))) 10)
+
+-- esCapicua 7345 = False && esCapicua (div (mod n ((iesimoDigito n 1) * 10^((cantDigitos n)-1))) 10)
