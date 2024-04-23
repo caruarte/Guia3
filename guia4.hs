@@ -137,3 +137,106 @@ e = eAprox 9
 
 -- ej 12
 raizDe2Aprox :: Integer -> Float
+raizDe2Aprox n = (raizDe2 n) - 1
+
+raizDe2 :: Integer -> Float
+raizDe2 1 = 2
+raizDe2 n = 2 + 1/raizDe2 (n-1)
+
+-- raizDe2Aprox 2 = 2 + 1/ (raizDe2Aprox 1) = 2,5
+
+-- ej 13
+
+g :: Integer -> Integer -> Integer
+g n 0 = 0
+g n m = n^m + g n (m-1)
+
+f :: Integer -> Integer -> Integer
+f n m 
+    | n == 0 = 0
+    | otherwise = g n m + f (n-1) m
+
+-- 2^1 + 2^2 + 2^3
+
+-- 1^1 + 1^2 + 1^3 + 2^1 + 2^2 + 2^3 = 1+1+1+2+4+8=17
+
+-- 1^1 + 1^2 + 2^1 + 2^2 + 3^1 + 3^2 + 4^1 + 4^2 + 5^1 + 5^2 = 1+1+2+4+3+9+4+16+5+25 = 70 
+
+-- ej 14
+
+sumaPotencias :: Integer -> Integer -> Integer -> Integer
+sumaPotencias q n m
+    | n == 1 = sumaPotenciasInterna q 1 m
+    | otherwise = sumaPotenciasInterna q n m + sumaPotencias q (n-1) m
+
+sumaPotenciasInterna :: Integer -> Integer -> Integer -> Integer
+sumaPotenciasInterna q n m
+    | m == 1 = q^(n+1)
+    | otherwise = q^(n+m) + sumaPotenciasInterna q n (m-1)
+
+-- sumaPotencias 2 2 3 = sumaPotenciasInterna 2 2 3 + sumaPotenciasInterna 2 1 3 = 2^(2+3) + 2^(2+2) + 2^(2+1) + 2^(1+3) + 2^(1+2) + 2^(1+1)
+
+--ej 15
+
+sumaRacionales :: Integer -> Integer -> Float
+sumaRacionales 1 m = sumaRacionalesInterno 1 m
+sumaRacionales n m = sumaRacionalesInterno n m + sumaRacionales (n-1) m
+
+sumaRacionalesInterno :: Integer -> Integer -> Float
+sumaRacionalesInterno n 1 = (fromIntegral n) / 1
+sumaRacionalesInterno n m = (fromIntegral n) / (fromIntegral m) + sumaRacionalesInterno n (m-1)
+
+-- ej 16
+
+menorDivisor :: Integer -> Integer
+menorDivisor 1 = 1
+menorDivisor n = menorDivisorInterno n 2
+
+menorDivisorInterno :: Integer -> Integer -> Integer
+menorDivisorInterno x y
+    | mod x y == 0 = y
+    | otherwise = menorDivisorInterno x (y+1)
+
+esPrimo :: Integer -> Bool
+esPrimo 1 = False
+esPrimo n = n == menorDivisor n
+
+sonCoprimos :: Integer -> Integer -> Bool
+sonCoprimos 1 _ = True
+sonCoprimos _ 1 = True
+sonCoprimos n m = menorDivisor n /= menorDivisor m && mod n m /= 0 && mod m n /= 0
+
+
+nEsimoPrimo :: Integer -> Integer
+nEsimoPrimo n = nEsimoPrimoDesde n 1
+
+nEsimoPrimoDesde :: Integer -> Integer -> Integer
+nEsimoPrimoDesde n m
+    | esPrimo m && n == 1 = m
+    | esPrimo m = nEsimoPrimoDesde (n-1) (m+1)
+    | otherwise = nEsimoPrimoDesde n (m+1)
+
+-- PRUEBA----------------------------------------------------------------
+
+esIgualaDiez :: Integer -> Bool
+esIgualaDiez x
+    | multiplicarPorDos x == 10 = True
+    | otherwise = False
+    where multiplicarPorDos x
+            | x == 5 = x*2
+            | x == 20 = div x 2
+            | otherwise = x
+
+
+-- ej 17
+
+esFibonacci :: Integer -> Bool
+esFibonacci x = compararFibonacci x 0
+
+compararFibonacci :: Integer -> Integer -> Bool
+compararFibonacci x y
+    | x < (fibonacci y) = False
+    | x == (fibonacci y) = True
+    | otherwise = compararFibonacci x (y+1)
+
+-- ej 18
