@@ -240,3 +240,29 @@ compararFibonacci x y
     | otherwise = compararFibonacci x (y+1)
 
 -- ej 18
+
+mayorDigitoPar :: Integer -> Integer
+mayorDigitoPar n
+    | cantDigitos n == 1 = n
+    | unidad n >= mayorDigitoPar (numeroSinUnidad n) && esPar (unidad n) = unidad n
+    | unidad n < mayorDigitoPar (numeroSinUnidad n) && esPar (mayorDigitoPar (numeroSinUnidad n)) = mayorDigitoPar (numeroSinUnidad n)
+    | esPar (mayorDigitoPar (numeroSinUnidad n)) = mayorDigitoPar (numeroSinUnidad n)
+    | esPar (unidad n) = unidad n
+    | otherwise = -1
+    where   unidad n = mod n 10
+            esPar n = mod n 2 == 0
+            numeroSinUnidad n = div n 10
+
+
+-- mayorDigitoPar 23 = 3 >= 2 && esPar (3)
+
+-- ej 19
+
+esSumaInicialDePrimos :: Int -> Bool
+esSumaInicialDePrimos n = sumaPrimos n (fromIntegral (nEsimoPrimo 1)) 1
+
+sumaPrimos :: Int -> Int -> Integer -> Bool
+sumaPrimos n m i
+    | m > n = False
+    | m == n = True
+    | otherwise = sumaPrimos n (m + fromIntegral(nEsimoPrimo (i+1))) (i+1)
