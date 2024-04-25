@@ -266,3 +266,20 @@ sumaPrimos n m i
     | m > n = False
     | m == n = True
     | otherwise = sumaPrimos n (m + fromIntegral(nEsimoPrimo (i+1))) (i+1)
+
+-- ej 20
+
+-- tomaValorMax :: Int -> Int -> Int
+
+-- ej 21
+pitagoras :: Integer -> Integer -> Integer -> Integer
+pitagoras m n r 
+    | m < 0 = 0
+    | m^2 + n^2 <= r^2 = 1 + cuantosPares m (n-1) r + pitagoras (m-1) n r
+    | otherwise = cuantosPares m (n-1) r + pitagoras (m-1) n r
+
+cuantosPares :: Integer -> Integer -> Integer -> Integer
+cuantosPares m n r 
+    | n < 0 = 0
+    | m^2 + n^2 <= r^2 = 1 + cuantosPares m (n-1) r
+    | otherwise = cuantosPares m (n-1) r
