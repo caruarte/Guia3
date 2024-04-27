@@ -1,4 +1,3 @@
-import Distribution.Simple.Utils (xargs)
 -- ej 1
 longitud :: [t] -> Integer              -- IMPORTANTE
 longitud [] = 0
@@ -86,3 +85,53 @@ listaContenida (x:xs) ys
 capicua :: (Eq t) => [t] -> Bool
 capicua [] = True
 capicua xs = xs == reverso2 xs
+
+-- ej 3
+
+sumatoria :: [Integer] -> Integer
+sumatoria [] = 0
+sumatoria (x:xs) = x + sumatoria xs
+
+productoria :: [Integer] -> Integer
+productoria [] = 1
+productoria (x:xs) = x * productoria xs
+
+maximo :: [Integer] -> Integer
+maximo (x:xs)
+    | xs == [] = x
+    | x >= maximo xs = x
+    | otherwise = maximo xs
+
+sumarN :: Integer -> [Integer] -> [Integer]
+sumarN _ [] = []
+sumarN a (x:xs) = (x+a) : sumarN a xs
+
+sumarElPrimero :: [Integer] -> [Integer]
+sumarElPrimero [] = []
+sumarElPrimero (x:xs) = sumarN x (x:xs)
+
+sumarElUltimo :: [Integer] -> [Integer]
+sumarElUltimo [] = []
+sumarElUltimo (x:xs) = sumarN (ultimo (x:xs)) (x:xs)
+
+pares :: [Integer] -> [Integer]
+pares [] = []
+pares (x:xs)
+    | mod x 2 == 0 = x : pares xs
+    | otherwise = pares xs
+
+multiplosDeN :: Integer -> [Integer] -> [Integer]
+multiplosDeN _ [] = []
+multiplosDeN a (x:xs)
+    | mod x a == 0 = x : multiplosDeN a xs
+    | otherwise = multiplosDeN a xs
+
+ordenar :: [Integer] -> [Integer]
+ordenar [] = []
+ordenar (x:xs) = reverso2 (ordenarAux (x:xs))
+
+ordenarAux :: [Integer] -> [Integer]
+ordenarAux [] = []
+ordenarAux (x:xs) = maximo (x:xs) : ordenarAux (quitar (maximo (x:xs)) (x:xs))
+
+-- ej 4
