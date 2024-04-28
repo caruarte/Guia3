@@ -20,7 +20,7 @@ reverso xs
     | longitud xs == 0 = []
     | otherwise = ultimo xs : reverso (principio xs)
 
-reverso2 :: (Eq t) => [t] -> [t]
+reverso2 :: (Eq t) => [t] -> [t] -- IMPORTANTE
 reverso2 [] = []
 reverso2 (x:xs) = reverso2 xs ++ [x]
 
@@ -135,3 +135,113 @@ ordenarAux [] = []
 ordenarAux (x:xs) = maximo (x:xs) : ordenarAux (quitar (maximo (x:xs)) (x:xs))
 
 -- ej 4
+
+sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos (x:xs)
+    | xs == [] = [x]
+    | x == head xs && x == ' ' = sacarBlancosRepetidos xs
+    | otherwise = x : sacarBlancosRepetidos xs
+
+contarPalabras :: [Char] -> Integer
+contarPalabras [] = 0
+contarPalabras (x:xs)
+    | xs == [] = 1
+    | x == ' ' = 1 + contarPalabras xs
+    | otherwise = contarPalabras xs
+
+palabras :: [Char] -> [[Char]]
+palabras xs = palabrasAux xs []
+
+palabrasAux :: [Char] -> [Char] -> [[Char]]
+palabrasAux [] actual = [actual]                -- IMPORTANTE PUEDE HABER FUNCION AUXILIAR VACIA QUE FUNCIONE COMO VARIABLE
+palabrasAux (x:xs) actual | x /= ' ' = (palabrasAux xs (actual ++ [x]))
+                          | x == ' ' = [actual] ++ (palabrasAux xs []) 
+
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga [] = []
+palabraMasLarga xs = chequearMasLarga (palabras xs)
+
+chequearMasLarga :: [[Char]] -> [Char]
+chequearMasLarga [] = []
+chequearMasLarga (x:xs)
+    | longitud x > longitud (chequearMasLarga xs) = x
+    | otherwise = chequearMasLarga xs
+
+aplanar :: [[Char]] -> [Char]
+aplanar [] = []                       
+aplanar (x:xs) = x ++ aplanar xs
+
+aplanarConBlancos :: [[Char]] -> [Char]
+aplanarConBlancos [] = []
+aplanarConBlancos [x] = x                  -- IMPORTANTE PUEDE HABER CASO DE LISTA DE UN ELEMENTO
+aplanarConBlancos (x:xs) = x ++ " " ++ aplanarConBlancos xs
+
+
+aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
+aplanarConNBlancos [] _ = []
+aplanarConNBlancos [x] _ = x                  -- IMPORTANTE PUEDE HABER CASO DE LISTA DE UN ELEMENTO
+aplanarConNBlancos (x:xs) a = x ++ blancos a ++ aplanarConNBlancos xs a
+
+blancos :: Integer -> [Char]
+blancos 0 = ""
+blancos n = " " ++ blancos (n-1)
+
+type Texto = [Char]
+
+blancos2 :: Integer -> Texto
+blancos2 0 = ""
+blancos2 n = " " ++ blancos2 (n-1)
+
+
+--ej 5
+
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada [] = []
+sumaAcumulada xs = sumaAcumuladaAux xs []
+
+sumaAcumuladaAux :: (Num t) => [t] -> [t] -> [t]
+sumaAcumuladaAux [] _ = []
+sumaAcumuladaAux (x:xs) numeros
+    | otherwise = (x + sumatoriaReal numeros) : sumaAcumuladaAux xs (x:numeros)
+
+sumatoriaReal :: (Num t) => [t] -> t
+sumatoriaReal [] = 0
+sumatoriaReal (x:xs) = x + sumatoriaReal xs
+
+
+
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) = factorizar x 1 : descomponerEnPrimos xs
+
+factorizar :: Integer -> Integer -> [Integer]
+factorizar 1 _= []
+factorizar n m
+    | mod n (nEsimoPrimo m) == 0 = nEsimoPrimo m : factorizar (div n (nEsimoPrimo m)) 1
+    | otherwise = factorizar n (m+1)
+
+
+
+
+menorDivisor :: Integer -> Integer
+menorDivisor 1 = 1
+menorDivisor n = menorDivisorInterno n 2
+
+menorDivisorInterno :: Integer -> Integer -> Integer
+menorDivisorInterno x y
+    | mod x y == 0 = y
+    | otherwise = menorDivisorInterno x (y+1)
+
+esPrimo :: Integer -> Bool
+esPrimo 1 = False
+esPrimo n = n == menorDivisor n
+
+nEsimoPrimo :: Integer -> Integer
+nEsimoPrimo n = nEsimoPrimoDesde n 1
+
+nEsimoPrimoDesde :: Integer -> Integer -> Integer
+nEsimoPrimoDesde n m
+    | esPrimo m && n == 1 = m
+    | esPrimo m = nEsimoPrimoDesde (n-1) (m+1)
+    | otherwise = nEsimoPrimoDesde n (m+1)
