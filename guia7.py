@@ -255,10 +255,17 @@ def potenciaMatriz(d: int, p: int) -> list[list[int]]:
     for i in range(d):
         res.append([])
         for j in range(d):
-            res[i].append()
+            res[i].append(sumatoriaMatriz(m, d, i, j))
+    return res
+
+def sumatoriaMatriz(m: list[list[int]], d:int, i:int, j:int) -> int:
+    res: int = 0
+    for k in range(d):
+        res += (m[i][k]*m[k][j])
 
 
-potenciaMatriz(3,5)
+
+print(potenciaMatriz(3,5))
 
 # in no se modifica. al principio y al final tienen que quedar intacto
 # out se modifica (no es la salida). No te importa lo que tenes antes. No se trabaja con informacion previa.
