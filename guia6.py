@@ -62,3 +62,123 @@ def es_bisiesto(año: int) -> bool:
     return es_multiplo_de(año, 400) or (es_multiplo_de(año, 4) and (not es_multiplo_de(año, 100)))
 
 # ej 4
+
+def peso_pino(metros: int) -> int:
+    peso:int = 0
+    for i in range(metros):
+        if i >= 3:
+            peso += 100 * 2
+        else:
+            peso += 100 * 3
+    return peso
+
+def es_peso_util(peso:int) -> bool:
+    res:bool = False
+    if peso >= 400 and peso <= 1000:
+        res = True
+    return res
+
+def sirve_pino(altura:int) -> bool:
+    return es_peso_util(peso_pino(altura))
+
+# ej 5
+
+def esPar(numero:int) -> bool:
+    res:bool = False
+    if numero % 2 == 0:
+        res = True
+    return res
+
+def devolver_el_doble_si_es_par(numero:int) -> int:
+    res:int = numero
+    if esPar(numero):
+        res *= 2
+    return res
+
+def devolver_valor_si_es_par_sino_el_que_sigue(numero:int) -> int:
+    res:int = numero
+    if not esPar(numero):
+        res += 1
+    return res
+
+def devolver_el_doble_si_es_multiplo3_el_triple_si_es_multiplo9(numero: int) -> int:
+    res:int = numero
+    if numero % 9 == 0:
+        res *= 3
+    elif numero % 3 == 0:
+        res *= 2
+    return res
+
+def lindo_nombre(nombre:str) -> str:
+    res:str = "Tu nombre tiene menos de 5 caracteres"
+    if len(nombre) >= 5:
+        res = "Tu nombre tiene muchas letras!"
+    return res
+
+def elRango(numero:int) -> None:
+    if numero < 5:
+        print("Menor a 5")
+    elif numero >= 10 and numero <= 20:
+        print("Entre 10 y 20")
+    elif numero > 20:
+        print("Mayor a 20")
+        
+def vacas(sexo:str, edad:int) -> None:
+    if (sexo == "F" and edad >= 18 and edad < 60) or (sexo == "M" and edad >= 18 and edad < 65):
+        print("Te toca trabajar")
+    else:
+        print("Anda de vacaciones")
+
+# ej 6
+
+def unoAlDiez() -> None:
+    i:int = 1
+    while i <= 10:
+        print(i)
+        i += 1
+
+def paresEntreDiezYCuarenta() -> None:
+    i:int = 10
+    while i <= 40:
+        if esPar(i):
+            print(i)
+        i += 1
+
+def eco() -> None:
+    i:int = 0
+    while i < 10:
+        print("eco")
+        i += 1
+
+def despegue(numero:int) -> None:
+    while numero >= 1:
+        print(numero)
+        numero -= 1
+    print("Despegue")
+
+def viaje(partida: int, llegada:int) -> None:
+    while partida >= llegada:
+        print("Viajó un año al pasado, estamos en el año: {0}".format(str(partida)))
+        partida -= 1
+
+def aristoteles(partida: int) -> None:
+    while partida >= -394:
+        print("Viajó un año al pasado, estamos en el año: {0}".format(str(partida)))
+        partida -= 20
+
+# ej 7 no
+
+# ej 9
+
+def rt(x: int, g: int) -> int:
+    g = g + 1
+    return x + g
+g: int = 0
+def ro(x: int) -> int:
+    global g
+    g = g + 1
+    return x + g
+
+print(ro(1))
+print(ro(1))
+print(ro(1))

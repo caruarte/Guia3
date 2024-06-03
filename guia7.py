@@ -262,6 +262,7 @@ def sumatoriaMatriz(m: list[list[int]], d:int, i:int, j:int) -> int:
     res: int = 0
     for k in range(d):
         res += (m[i][k]*m[k][j])
+    return res
 
 
 
