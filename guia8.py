@@ -66,16 +66,50 @@ def cantidad_apariciones(nombre_archivo: str, palabra:str) -> int:
 
 def clonar_sin_comentarios(nombre_archivo:str) -> None:
     archivo = open(nombre_archivo, "r")
+    archivo2 = open("archivo_sin_comentarios.txt", "w")
     contenido = archivo.readlines() # el contenido del texto en una lista donde cada elemento es una linea
     for i in range(len(contenido)):
-        if archivo[i] =="#":
-            res += 1
+        if not esComentario(contenido[i]):
+            archivo2.write(contenido[i])
     archivo.close()
+    archivo2.close()
+
+def esComentario(linea: str) -> bool:
+    res:bool = False
+    for i in range(len(linea)):
+        if linea[i] == "#":
+            return True
+        elif linea[i] != " ":
+            return False
+
+# clonar_sin_comentarios("texto.txt")
+
+# EJ 3
+def invertir_lineas(nombre_archivo:str) -> None:
+    archivo = open(nombre_archivo, "r")
+    archivo2 = open("reverso.txt", "w")
+    contenido = archivo.readlines() # el contenido del texto en una lista donde cada elemento es una linea
+    for i in range(len(contenido) - 1, -1 , -1):
+        archivo2.write(sacarSalto(contenido[i]))
+        if i != 0:
+            archivo2.write("\n")
+    archivo.close()
+    archivo2.close()
+
+def sacarSalto(linea:str) -> str:
+    res:str = ""
+    for i in range(len(linea)):
+        if linea[i] != "\n":
+            res += linea[i]
     return res
 
+# ej 4
 
 
-print(cantidad_apariciones("texto.txt", "hola"))
+
+
+# HACER UN DICCIONARIO
+#d:dict[str, int] = {}
 
 # es necesario close: SI
 # se puede usar "in": NO, solamente cuando es in range

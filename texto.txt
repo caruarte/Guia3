@@ -1,5 +1,3 @@
-Hola
-juan
-KKK kkskad
-hola
-hola
+# esto es un comentario
+        # esto tambien
+esto no es un comentario # esto tampoco
