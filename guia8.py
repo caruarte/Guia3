@@ -105,7 +105,14 @@ def sacarSalto(linea:str) -> str:
 
 # ej 4
 
+def agregar_frase_al_final(nombre_archivo: str, frase: str):
+    archivo = open(nombre_archivo, "a")
+    archivo.write(frase)
+    archivo.close()
 
+agregar_frase_al_final("texto.txt", "\ndsadasd")
+
+# ej 5
 
 
 # HACER UN DICCIONARIO
