@@ -148,9 +148,67 @@ def listar_palabras_de_archivo(nombre_archivo:str) -> list:
 # ej 7
 
 def calcular_promedio_por_estudiante(nombre_archivo_notas:str, nombre_archivo_promedios:str) -> None:
+    archivo = open(nombre_archivo_notas, "r")
+    archivoPromedio = open(nombre_archivo_promedios, "w")
+    contenido:list[str] = archivo.readlines()
+    contenidoSeparado:list[list[str]] = separarCSV(contenido, [","])
+    estudiantes:list[int] = []
+    archivoPromedio.write("lu,promedio\n")
+    cantAlumnos:int = 0
+    for i in range(1, len(contenidoSeparado), 1):
+        if not (int(contenidoSeparado[i][0]) in estudiantes):
+            cantAlumnos += 1
+            estudiantes.append(int(contenidoSeparado[i][0]))
+
+    for i in range(len(estudiantes)):
+        promedio = str(promedio_estudiante(nombre_archivo_notas, str(estudiantes[i])))
+        archivoPromedio.write(str(estudiantes[i]) + "," + promedio)
+        if i != (len(estudiantes) - 1):
+            archivoPromedio.write("\n")
+            
+    archivo.close()
+    archivoPromedio.close()
+    
+
+
+def separarCSV(contenido:list[str], caracteres:list[str]) -> list[list[str]]:
+    contenidoSeparado:list[list[str]] = []
+    palabra:str = ""
+    for i in range(len(contenido)):
+        contenidoSeparado.append([])
+        for j in range(len(contenido[i])):
+            if contenido[i][j] in caracteres:
+                contenidoSeparado[i].append(palabra)
+                palabra = ""
+            else:
+                palabra += contenido[i][j]
+        contenidoSeparado[i].append(palabra)
+        palabra = ""
+    return contenidoSeparado
+            
+
 
 def promedio_estudiante(nombre_archivo:str, lu:str) -> float:
-    
+    promedio:float = 0
+    sumaNotas:float = 0
+    cantidadDeNotas:int = 0
+    archivo = open(nombre_archivo, "r")
+    contenido = archivo.readlines()
+    contenidoSeparado = separarCSV(contenido, [","])
+    for i in range(len(contenidoSeparado)):
+        if contenidoSeparado[i][0] == lu:
+            sumaNotas += float(contenidoSeparado[i][3])
+            cantidadDeNotas += 1
+    if cantidadDeNotas > 0:
+        promedio = sumaNotas / cantidadDeNotas
+    archivo.close()
+    return promedio
+
+
+
+
+
+calcular_promedio_por_estudiante("archivo.csv", "promedios.csv")
 
 
 # HACER UN DICCIONARIO
