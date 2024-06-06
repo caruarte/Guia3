@@ -5,6 +5,9 @@
 # leer/escribir -> contenido = archivo.read()
 # cerrar -> archivo.close()
 
+from queue import LifoQueue as Pila
+from random import *
+
 # ej 1
 
 def contar_lineas(nombre_archivo:str) -> int:
@@ -204,11 +207,15 @@ def promedio_estudiante(nombre_archivo:str, lu:str) -> float:
     archivo.close()
     return promedio
 
+#calcular_promedio_por_estudiante("archivo.csv", "promedios.csv")
 
+def generar_nros_al_azar(cantidad:int, desde:int, hasta:int) -> Pila[int]:
+    p = Pila()
+    for i in range(cantidad):
+        p.put(randint(desde, hasta))
+    return p
 
-
-
-calcular_promedio_por_estudiante("archivo.csv", "promedios.csv")
+print(generar_nros_al_azar(3, 1, 9).queue)
 
 
 # HACER UN DICCIONARIO
