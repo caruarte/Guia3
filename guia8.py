@@ -105,14 +105,52 @@ def sacarSalto(linea:str) -> str:
 
 # ej 4
 
-def agregar_frase_al_final(nombre_archivo: str, frase: str):
+def agregar_frase_al_final(nombre_archivo: str, frase: str) -> None:
     archivo = open(nombre_archivo, "a")
     archivo.write(frase)
     archivo.close()
 
-agregar_frase_al_final("texto.txt", "\ndsadasd")
+# agregar_frase_al_final("texto.txt", "\nCesar")
 
 # ej 5
+
+def agregar_frase_al_principio(nombre_archivo: str, frase: str) -> None:
+    archivo = open(nombre_archivo, "r+")
+    contenido = archivo.readlines()
+    archivo.close()
+    archivo = open(nombre_archivo, "w")
+    archivo.write(frase + "\n")
+    archivo.writelines(contenido)
+    archivo.close()
+
+# agregar_frase_al_principio("texto.txt", "sadsxc")
+
+# ej 6
+
+def listar_palabras_de_archivo(nombre_archivo:str) -> list:
+    archivo = open(nombre_archivo, "rb")
+    contenido = archivo.read()
+    palabrasLegibles:list[str] = []
+    palabra:str = ""
+    for i in contenido:
+        if chr(i) == " " or chr(i) == "_"  or (chr(i) >= "A" and chr(i) <= "Z") or (chr(i) >= "a" and chr(i) <= "z"): 
+            palabra += chr(i)
+        else:
+            palabra = ""
+        if len(palabra) >= 5:
+            palabrasLegibles.append(palabra)
+            palabra = ""
+    return palabrasLegibles
+
+
+#print(listar_palabras_de_archivo("texto.txt"))
+
+# ej 7
+
+def calcular_promedio_por_estudiante(nombre_archivo_notas:str, nombre_archivo_promedios:str) -> None:
+
+def promedio_estudiante(nombre_archivo:str, lu:str) -> float:
+    
 
 
 # HACER UN DICCIONARIO
