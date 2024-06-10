@@ -108,17 +108,20 @@ def vocales(s: str) -> bool:
 
 lista = [1,2,3,4,5]
 
-def borrarPares(s: list[int]) -> None:
+def borrarPares(s: list[int]) -> None: # inout
     for i in range(len(s)):
         if i % 2 == 0:
             s[i] = 0
 
-def borrarPares2(s: list[int]) -> list[int]:
+def borrarPares2(s: list[int]) -> list[int]: # in
     lista:list[int] = s.copy()
     for i in range(len(lista)):
         if i % 2 == 0:
             lista[i] = 0
     return lista
+
+borrarPares2(lista)
+print(lista)
 
 def sinVocales(s: str) -> str:
     res:str = ""
@@ -264,9 +267,9 @@ def sumatoriaMatriz(m: list[list[int]], d:int, i:int, j:int) -> int:
         res += (m[i][k]*m[k][j])
     return res
 
+# print(potenciaMatriz(3,5))
 
 
-print(potenciaMatriz(3,5))
 
 # in no se modifica. al principio y al final tienen que quedar intacto
 # out se modifica (no es la salida). No te importa lo que tenes antes. No se trabaja con informacion previa.
@@ -281,5 +284,5 @@ print(potenciaMatriz(3,5))
 # out no aparece en el requiere
 
 
-#por referencia: se cambia la lista original
-#por valor/copia: es una copia nueva
+#por referencia: listas y diccionarios - se cambia la lista original
+#por valor/copia: str, int, tuple, float - es una copia nueva
